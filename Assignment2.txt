@@ -1,0 +1,126 @@
+1. Roman to Integer
+
+int romanToInt(char * s){
+     int value[100];
+    value['I'] = 1;
+    value['V'] = 5;
+    value['X'] = 10;
+    value['L'] = 50;
+    value['C'] = 100;
+    value['D'] = 500;
+    value['M'] = 1000;
+    value['\0'] = 0;
+    int sum = 0;
+    for(int i = 0; s[i] !='\0'; i++){
+        if(value[s[i]] < value[s[i + 1]])
+            sum = sum - value[s[i]];
+        else
+            sum += value[s[i]];
+    }
+    return sum;
+}
+
+
+2.Longest Common Prefix
+
+class Solution {
+        public String longestCommonPrefix(String[] strs) {
+        if(strs.length==0) return "";
+        String prefix=strs[0];
+        for(int i=1;i<strs.length;i++){
+            while(strs[i].indexOf(prefix)!=0){
+                prefix=prefix.substring(0,prefix.length()-1);
+            }
+            
+        }
+        return prefix;
+        
+        
+    }
+        
+    }
+
+
+3.Valid Palindrome
+
+class Solution {
+public:
+    bool isPalindrome(string s) {
+        int start=0, end=s.length()-1;
+	    while(start<end) {
+		if (!isalnum(s[start])) start++;
+		else if (!isalnum(s[end])) end--;
+		else {
+			if (tolower(s[start++])!=tolower(s[end--]))
+                return false;
+		}
+	}
+	return true;
+    }
+};
+
+
+
+4.Valid Anagram
+
+class Solution {            
+public:
+    bool isAnagram(string s, string t) {
+        if(s.length() != t.length()){
+            return false;
+        }
+        sort(s.begin(), s.end());
+        sort(t.begin(), t.end());
+        if(s == t){
+            return true;  
+        }
+        return false;
+    }
+}; 
+
+
+
+5.Reverse Words in a String
+
+class Solution {
+public:
+    string reverseWords(string s) {
+        stringstream str(s);
+        string word,ans="";
+        while(str>>word)
+        ans=word + " "+ans;
+        ans.pop_back();
+        return ans;
+    }
+};
+
+
+
+7.Longest Valid Parentheses
+
+class Solution {
+public:
+    int longestValidParentheses(string s) {
+        int ans=0;
+        int t=0;
+        stack<int> st;
+        st.push(-1);
+        for(auto i:s)
+        {
+            if(i=='(') {
+                st.push(t);
+                
+            }
+            else{
+                if(!st.empty() && st.top()!=-1 && s[st.top()]=='(')
+                {
+                    st.pop();
+                    ans=max(ans,abs(t-st.top()));    
+                }
+                else st.push(t);
+            }
+            t++;
+        }
+        return ans;
+    }
+};
